@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import OpenAI from "openai";
-import { Tvly } from "@tavily/core";
+import { tavily } from "@tavily/core";
 
 let openaiClient: OpenAI | null = null;
 
@@ -84,7 +84,7 @@ async function searchWithBrave(query: string, apiKey: string): Promise<string | 
 
 async function extractWithTavily(urls: string[], apiKey: string): Promise<Record<string, string>> {
   try {
-    const client = new Tvly({ apiKey });
+    const client = tavily({ apiKey });
     const res = await client.extract({ urls });
     
     const extracted: Record<string, string> = {};
