@@ -1,36 +1,55 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# CopyRank
+
+AI-powered product listing analyzer for Bol.com and Amazon sellers.
+
+Paste your product content (titel, beschrijving, bullets) of vul een URL/EAN in en krijg direct inzicht in je listingkwaliteit met concrete verbeteradviezen.
+
+## Features
+
+- **Titel analyse** - SEO-optimalisatie, leesbaarheid, zoektermen
+- **Beschrijving evaluatie** - Structuur, volledigheid, overtuigingskracht
+- **Bullet point scoring** - Aanwezigheid, specificatie, formaat
+- **Benchmark vergelijking** - Hoe scoor je t.o.v. top-concurrenten?
+- **Concrete verbeteradviezen** - Met prioriteit en voorbeelden
+
+## Tech Stack
+
+- **Next.js 16** (App Router)
+- **TypeScript**
+- **Tailwind CSS**
+- **OpenAI GPT-4o**
 
 ## Getting Started
 
-First, run the development server:
+1. **Kloon en installeer**
+   ```bash
+   cd copyrank
+   npm install
+   ```
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+2. **Omgevingsvariabelen**
+   ```bash
+   cp .env.example .env.local
+   # Vul je OpenAI API key in
+   ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+3. **Start de dev server**
+   ```bash
+   npm run dev
+   ```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+4. **Open** [http://localhost:3000](http://localhost:3000)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Environment Variables
 
-## Learn More
+| Variable | Description |
+|----------|-------------|
+| `OPENAI_API_KEY` | Je OpenAI API key (verplicht) |
+| `FIRECRAWL_API_KEY` | Voor automatisch URL's ophalen (optioneel) |
 
-To learn more about Next.js, take a look at the following resources:
+## Roadmap
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- [ ] Firecrawl integratie voor automatisch URL's ophalen
+- [ ] Bol.com / Amazon API integratie
+- [ ] Historische scores bijhouden
+- [ ] Batch analyse voor meerdere producten
