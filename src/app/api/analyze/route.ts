@@ -48,6 +48,15 @@ export async function POST(req: NextRequest) {
   try {
     const { productContent, searchTerm, source } = await req.json();
 
+    // URL/EAN mode requires scraping - check if we have the necessary data
+    if (source === "url" && !productContent) {
+      // For now, scraping is not available (Firecrawl credits exhausted)
+      return NextResponse.json(
+        { error: "Automatisch scrapen is momenteel niet beschikbaar (geen Firecrawl credits). Gebruik de 'Voer zelf in' modus voor handmatige invoer." },
+        { status: 503 }
+      );
+    }
+
     if (!productContent) {
       return NextResponse.json(
         { error: "Product content is required" },
