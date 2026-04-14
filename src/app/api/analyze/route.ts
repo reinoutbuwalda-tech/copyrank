@@ -85,12 +85,12 @@ async function searchWithBrave(query: string, apiKey: string): Promise<string | 
 async function extractWithTavily(urls: string[], apiKey: string): Promise<Record<string, string>> {
   try {
     const client = tavily({ apiKey });
-    const res = await client.extract({ urls });
+    const res = await client.extract(urls);
     
     const extracted: Record<string, string> = {};
     for (const result of res.results) {
-      if (result.raw_content) {
-        extracted[result.url] = result.raw_content;
+      if (result.rawContent) {
+        extracted[result.url] = result.rawContent;
       }
     }
     return extracted;
