@@ -94,23 +94,18 @@ export default function Home() {
     try {
       let payload: Record<string, string> = { source: mode };
 
+      if (!manualTitle) {
+        throw new Error("Vul minimaal een titel in");
+      }
+      payload.searchTerm = searchTerm;
+      payload.productContent = JSON.stringify({
+        titel: manualTitle,
+        beschrijving: manualDesc,
+        bulletPoints: manualBullets.split("\n").filter(Boolean),
+      });
       if (mode === "url") {
-        if (!productUrl && !ean) {
-          throw new Error("Vul een URL of EAN in");
-        }
         payload.url = productUrl;
         payload.ean = ean;
-        payload.searchTerm = searchTerm;
-      } else {
-        if (!manualTitle) {
-          throw new Error("Vul minimaal een titel in");
-        }
-        payload.searchTerm = searchTerm;
-        payload.productContent = JSON.stringify({
-          titel: manualTitle,
-          beschrijving: manualDesc,
-          bulletPoints: manualBullets.split("\n").filter(Boolean),
-        });
       }
 
       const res = await fetch("/api/analyze", {
@@ -263,6 +258,36 @@ export default function Home() {
                   onChange={(e) => setSearchTerm(e.target.value)}
                   placeholder="waarvoor wil je gevonden worden?"
                   className="w-full bg-slate-900 border border-slate-600 rounded-lg px-4 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500"
+                />
+              </div>
+              <div className="md:col-span-2">
+                <label className="block text-sm font-medium text-slate-300 mb-1.5">Titel *</label>
+                <input
+                  type="text"
+                  value={manualTitle}
+                  onChange={(e) => setManualTitle(e.target.value)}
+                  placeholder="Volledige product titel"
+                  className="w-full bg-slate-900 border border-slate-600 rounded-lg px-4 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500"
+                />
+              </div>
+              <div className="md:col-span-2">
+                <label className="block text-sm font-medium text-slate-300 mb-1.5">Beschrijving</label>
+                <textarea
+                  value={manualDesc}
+                  onChange={(e) => setManualDesc(e.target.value)}
+                  placeholder="Volledige productbeschrijving..."
+                  rows={3}
+                  className="w-full bg-slate-900 border border-slate-600 rounded-lg px-4 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 resize-none"
+                />
+              </div>
+              <div className="md:col-span-2">
+                <label className="block text-sm font-medium text-slate-300 mb-1.5">Bullet Points <span className="text-slate-500">(één per regel)</span></label>
+                <textarea
+                  value={manualBullets}
+                  onChange={(e) => setManualBullets(e.target.value)}
+                  placeholder="• Eerste USP&#10;• Tweede USP&#10;• Derde USP"
+                  rows={3}
+                  className="w-full bg-slate-900 border border-slate-600 rounded-lg px-4 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 resize-none"
                 />
               </div>
             </div>
